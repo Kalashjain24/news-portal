@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Live News Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f4f4f4;
+        }
+
+        header {
+            background: #d32f2f;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        #news {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 10px;
+        }
+
+        .card {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .source {
+            font-size: 12px;
+            color: gray;
+            margin-bottom: 5px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #d32f2f;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<header>📰 Live Multilingual News</header>
+
+<div id="news">Loading news...</div>
+
+<script>
+fetch("https://news-portal-giad.onrender.com/api/news")
+    .then(res => res.json())
+    .then(data => {
+        const container = document.getElementById("news");
+        container.innerHTML = "";
+
+        data.forEach(n => {
+            const div = document.createElement("div");
+            div.className = "card";
+
+            div.innerHTML = `
+                <div class="source">${n.source}</div>
+                <a href="${n.link}" target="_blank">${n.title}</a>
+            `;
+
+            container.appendChild(div);
+        });
+    })
+    .catch(() => {
+        document.getElementById("news").innerText = "Failed to load news.";
+    });
+</script>
+
+</body>
+</html>
