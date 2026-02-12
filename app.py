@@ -1,5 +1,6 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, send_from_directory
 import feedparser
+import os
 
 app = Flask(__name__)
 
@@ -13,20 +14,12 @@ RSS_FEEDS = {
     "Times of India (English)": "https://timesofindia.indiatimes.com/rssfeedstopstories.cms",
 }
 
-from flask import send_from_directory
-import os
-
-
+# Homepage → show index.html
 @app.route("/")
 def home():
     return send_from_directory(os.getcwd(), "index.html")
 
-    return """
-    <h1>📰 Multilingual News Portal is LIVE</h1>
-    <p>Hindi + Marathi + English news connected.</p>
-    <p>Open <a href='/api/news'>/api/news</a> to see live headlines.</p>
-    """
-
+# API → return live news JSON
 @app.route("/api/news")
 def get_news():
     all_news = []
