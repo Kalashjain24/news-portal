@@ -13,8 +13,12 @@ RSS_FEEDS = {
     "Times of India (English)": "https://timesofindia.indiatimes.com/rssfeedstopstories.cms",
 }
 
+from flask import send_file
+
 @app.route("/")
 def home():
+    return send_file("index.html")
+
     return """
     <h1>📰 Multilingual News Portal is LIVE</h1>
     <p>Hindi + Marathi + English news connected.</p>
